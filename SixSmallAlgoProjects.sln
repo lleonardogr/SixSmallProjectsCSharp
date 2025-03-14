@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "binary_node1", "binary_node1\binary_node1.csproj", "{3AB3208A-EDEA-41C4-9B02-43242D010674}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Trees", "1_Trees", "{2BFE44DC-4CF8-47DA-98F1-CE783297E36D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nary_node1", "nary_node1\nary_node1.csproj", "{2C70D73D-EA3C-43C5-9B2D-CBE27D836ED3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trees", "Trees\Trees.csproj", "{9B29BCD6-C8F5-4F1C-8A23-9CF72CCB8FBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,13 +10,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3AB3208A-EDEA-41C4-9B02-43242D010674}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3AB3208A-EDEA-41C4-9B02-43242D010674}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3AB3208A-EDEA-41C4-9B02-43242D010674}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3AB3208A-EDEA-41C4-9B02-43242D010674}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2C70D73D-EA3C-43C5-9B2D-CBE27D836ED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C70D73D-EA3C-43C5-9B2D-CBE27D836ED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C70D73D-EA3C-43C5-9B2D-CBE27D836ED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C70D73D-EA3C-43C5-9B2D-CBE27D836ED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B29BCD6-C8F5-4F1C-8A23-9CF72CCB8FBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B29BCD6-C8F5-4F1C-8A23-9CF72CCB8FBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B29BCD6-C8F5-4F1C-8A23-9CF72CCB8FBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B29BCD6-C8F5-4F1C-8A23-9CF72CCB8FBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9B29BCD6-C8F5-4F1C-8A23-9CF72CCB8FBD} = {2BFE44DC-4CF8-47DA-98F1-CE783297E36D}
 	EndGlobalSection
 EndGlobal

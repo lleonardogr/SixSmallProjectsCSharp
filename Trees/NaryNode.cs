@@ -1,4 +1,4 @@
-namespace nary_node1;
+namespace Trees;
 
 public class NaryNode<T>
 {
