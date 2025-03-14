@@ -40,4 +40,20 @@ public class BinaryNode<T>
             
         return sb.ToString().Trim();
     }
+    
+    public BinaryNode<T>? FindNode(T target)
+    {
+        if (Value.Equals(target)) return this;
+        if (Left != null)
+        {
+            var result = Left.FindNode(target);
+            if (result != null) return result;
+        }
+        if (Right != null)
+        {
+            var result = Right.FindNode(target);
+            if (result != null) return result;
+        }
+        return null;
+    }
 }

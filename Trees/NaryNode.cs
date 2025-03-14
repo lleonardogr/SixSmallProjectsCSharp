@@ -35,5 +35,17 @@ public class NaryNode<T>
             sb.AppendLine(space.PadLeft(level) + child.ToString(level));
         }
         return sb.ToString().Trim();
+        
+    }
+    
+    public NaryNode<T> FindNode(T target)
+    {
+        if (Value.Equals(target)) return this;
+        foreach (var child in Children)
+        {
+            var result = child.FindNode(target);
+            if (result != null) return result;
+        }
+        return null;
     }
 }
