@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Trees;
 
 public class NaryNode<T>
@@ -12,10 +14,20 @@ public class NaryNode<T>
     }
     
     public void AddChild(T value) => Children.Add(new NaryNode<T>(value));
-    
-    public override string? ToString()
+
+    public override string ToString()
     {
-        var children = Children.Select(c => c.Value).ToList();
-        return $"{Value}: {string.Join(", ", children)}";
+        var sb = new StringBuilder();
+        sb.Append($"{Value}: ");
+        foreach (var child in Children)
+        {
+            sb.Append($"{child.Value} ");
+        }
+        sb.Append("\n");
+        foreach (var child in Children)
+        {
+            sb.Append(child.ToString());
+        }
+        return sb.ToString();
     }
 }

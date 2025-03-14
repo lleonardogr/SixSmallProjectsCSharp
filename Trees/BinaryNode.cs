@@ -18,8 +18,11 @@ public class BinaryNode<T>
 
     public override string? ToString()
     {
-        return $"{Value}: {(Left == null  ? "null" : Left.Value)} " +
-               $"{(Right == null  ? "null" : Right.Value)}";
+        return $"""
+                {Value}: {(Left == null ? "null" : Left.Value)} {(Right == null ? "null" : Right.Value)}
+                {Left?.ToString()}
+                {Right?.ToString()}
+                """;
     }
     
     
