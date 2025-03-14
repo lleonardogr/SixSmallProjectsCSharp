@@ -48,4 +48,49 @@ public class NaryNode<T>
         }
         return null;
     }
+    
+    public string TraversePreOrder()
+    {
+        var sb = new StringBuilder();
+        sb.Append(Value);
+        if (Children.Count > 0)
+        {
+            foreach (var child in Children)
+            {
+                sb.Append(child.TraversePreOrder());
+            }
+        }
+        return sb.ToString();
+    }
+    
+    public string TraversePostOrder()
+    {
+        var sb = new StringBuilder();
+        if (Children.Count > 0)
+        {
+            foreach (var child in Children)
+            {
+                sb.Append(child.TraversePostOrder());
+            }
+        }
+        sb.Append(Value);
+        return sb.ToString();
+    }
+    
+    public string TraverseBreadthFirst()
+    {
+        var sb = new StringBuilder();
+        var queue = new Queue<NaryNode<T>>();
+        queue.Enqueue(this);
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            sb.Append(current.Value);
+            foreach (var child in current.Children)
+            {
+                queue.Enqueue(child);
+            }
+        }
+        return sb.ToString();
+    }
 }

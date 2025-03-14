@@ -56,4 +56,54 @@ public class BinaryNode<T>
         }
         return null;
     }
+    
+    public string TraverseInOrder()
+    {
+        var sb = new StringBuilder();
+        if (Left != null)
+            sb.Append(Left.TraverseInOrder());
+        sb.Append(Value);
+        if (Right != null)
+            sb.Append(Right.TraverseInOrder());
+        return sb.ToString();
+    }
+    
+    public string TraversePreOrder()
+    {
+        var sb = new StringBuilder();
+        sb.Append(Value);
+        if (Left != null)
+            sb.Append(Left.TraversePreOrder());
+        if (Right != null)
+            sb.Append(Right.TraversePreOrder());
+        return sb.ToString();
+    }
+    
+    public string TraversePostOrder()
+    {
+        var sb = new StringBuilder();
+        if (Left != null)
+            sb.Append(Left.TraversePostOrder());
+        if (Right != null)
+            sb.Append(Right.TraversePostOrder());
+        sb.Append(Value);
+        return sb.ToString();
+    }
+    
+    public string TraverseBreadthFirst()
+    {
+        var sb = new StringBuilder();
+        var queue = new Queue<BinaryNode<T>>();
+        queue.Enqueue(this);
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+            sb.Append(current.Value);
+            if (current.Left != null)
+                queue.Enqueue(current.Left);
+            if (current.Right != null)
+                queue.Enqueue(current.Right);
+        }
+        return sb.ToString();
+    }
 }
