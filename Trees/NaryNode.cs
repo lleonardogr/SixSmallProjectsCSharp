@@ -17,17 +17,23 @@ public class NaryNode<T>
 
     public override string ToString()
     {
+        const string space = " ";
         var sb = new StringBuilder();
-        sb.Append($"{Value}: ");
+        sb.AppendLine($"{Value}:");
+
+        return ToString(0);
+    }
+    
+    public string ToString(int level)
+    {
+        level = level + 1;
+        const string space = " ";
+        var sb = new StringBuilder();
+        sb.AppendLine($"{Value}:");
         foreach (var child in Children)
         {
-            sb.Append($"{child.Value} ");
+            sb.AppendLine(space.PadLeft(level) + child.ToString(level));
         }
-        sb.Append("\n");
-        foreach (var child in Children)
-        {
-            sb.Append(child.ToString());
-        }
-        return sb.ToString();
+        return sb.ToString().Trim();
     }
 }

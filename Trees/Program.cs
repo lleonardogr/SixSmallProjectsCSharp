@@ -13,7 +13,8 @@ test_node.Left?.AddRightChild("D");
 test_node.Right?.AddRightChild("E");
 test_node.Right?.Right?.AddRightChild("F");
 
-Console.WriteLine(test_node.ToString());
+var texto = test_node.ToString();
+Console.WriteLine(texto);
 
 var nary_node = new NaryNode<string>("Root");
 nary_node.AddChild("A");
@@ -25,3 +26,5 @@ nary_node.Children[2].AddChild("F");
 nary_node.Children[0].Children[0].AddChild("G");
 nary_node.Children[2].Children[0].AddChild("H");
 nary_node.Children[2].Children[0].AddChild("I");
+
+Console.WriteLine(nary_node.ToString());
