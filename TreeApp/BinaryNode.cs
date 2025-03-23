@@ -152,7 +152,7 @@ public class BinaryNode<T>
     
     #region Drawing
     
-        private void ArrangeSubtree(double xmin, double ymin)
+        public void ArrangeSubtree(double xmin, double ymin)
         {
             var cy = ymin + NODE_RADIUS;
             
@@ -218,37 +218,59 @@ public class BinaryNode<T>
             if (Left != null)
             {
                 Left.DrawSubtreeLinks(canvas);
-                canvas.DrawLine(Center, Left.Center, new SolidColorBrush(){Color=Colors.Black} , 1);
+                canvas.DrawLine(
+                    Center, 
+                    Left.Center, 
+                    new SolidColorBrush() { Color = Colors.Black }, 
+                    1
+                );
             }
 
             if (Right != null)
             {
                 Right.DrawSubtreeLinks(canvas);
-                canvas.DrawLine(Center, Right.Center, new SolidColorBrush(){Color=Colors.Black}, 1);
+                canvas.DrawLine(
+                    Center, 
+                    Right.Center, 
+                    new SolidColorBrush() { Color = Colors.Black }, 
+                    1
+                );
             }
 
             // Outline the subtree for debugging.
-            //canvas.DrawRectangle(SubtreeBounds, null, Brushes.Red, 1);
+            // canvas.DrawRectangle(SubtreeBounds, null, new SolidColorBrush() { Color = Colors.Red }, 1);
         }
 
         // Draw the subtree's nodes.
         private void DrawSubtreeNodes(Canvas canvas)
         {
-            // Draw the node.
-            var x0 = Center.X - NODE_RADIUS;
-            var y0 = Center.Y - NODE_RADIUS;
+            // Create the node bounds rectangle
             var rect = new Rect(
                 Center.X - NODE_RADIUS,
                 Center.Y - NODE_RADIUS,
                 2 * NODE_RADIUS,
-                2 * NODE_RADIUS);
-            canvas.DrawEllipse(rect, new SolidColorBrush(){Color=Colors.White}, new SolidColorBrush(){Color=Colors.Green}, 1);
+                2 * NODE_RADIUS
+            );
+            
+            // Draw ellipse using extension method
+            canvas.DrawEllipse(
+                rect, 
+                new SolidColorBrush() { Color = Colors.White }, 
+                new SolidColorBrush() { Color = Colors.Green }, 
+                1
+            );
 
-            var label = canvas.DrawLabel(
-                rect, Value, null, new SolidColorBrush(){Color=Colors.Red},
+            // Draw label using extension method
+            canvas.DrawLabel(
+                rect, 
+                Value, 
+                null, 
+                new SolidColorBrush() { Color = Colors.Red },
                 HorizontalAlignment.Center,
                 VerticalAlignment.Center,
-                12, 0);
+                12, 
+                0
+            );
 
             // Draw the descendants' nodes.
             if (Left != null) Left.DrawSubtreeNodes(canvas);

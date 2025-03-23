@@ -31,7 +31,7 @@ using Avalonia;
             Rect bounds,
             Brush fill, Brush stroke, double stroke_thickness)
         {
-            Rectangle rectangle = new Rectangle();
+            var rectangle = new Rectangle();
             rectangle.SetElementBounds(bounds);
             rectangle.SetShapeProperties(fill, stroke, stroke_thickness);
             canvas.Children.Add(rectangle);
@@ -43,7 +43,7 @@ using Avalonia;
             Rect bounds,
             Brush fill, Brush stroke, double stroke_thickness)
         {
-            Ellipse ellipse = new Ellipse();
+            var ellipse = new Ellipse();
             ellipse.SetElementBounds(bounds);
             ellipse.SetShapeProperties(fill, stroke, stroke_thickness);
             canvas?.Children?.Add(ellipse);
@@ -58,7 +58,7 @@ using Avalonia;
             VerticalAlignment v_align,
             double font_size, double padding)
         {
-            Label label = new Label
+            var label = new Label
             {
                 Content = content,
                 Foreground = foreground,

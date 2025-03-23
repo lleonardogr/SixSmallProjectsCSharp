@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Avalonia;
 using Avalonia.Controls;
@@ -143,8 +144,8 @@ private void ArrangeSubtree(double xmin, double ymin)
     }
 
     // Count how many leaf and non-leaf children we have
-    int leafCount = 0;
-    int nonLeafCount = 0;
+    var leafCount = 0;
+    var nonLeafCount = 0;
     foreach (var child in Children)
     {
         if (child.IsLeaf) leafCount++;
@@ -152,54 +153,49 @@ private void ArrangeSubtree(double xmin, double ymin)
     }
 
     // Calculate starting positions for child subtrees
-    double child_xmin = xmin;
-    double child_ymin = ymin + 2 * BOX_HALF_HEIGHT + Y_SPACING;
-    double ymax = ymin + 2 * BOX_HALF_HEIGHT;
-    double leafYMin = child_ymin;
+    var child_xmin = xmin;
+    var child_ymin = ymin + 2 * BOX_HALF_HEIGHT + Y_SPACING;
+    var ymax = ymin + 2 * BOX_HALF_HEIGHT;
+    var leafYMin = child_ymin;
     
     // Process non-leaf children first (horizontally)
-    foreach (NaryNode<T> child in Children)
+    foreach (var child in Children.Where(child => !child.IsLeaf))
     {
-        if (!child.IsLeaf)
-        {
-            child.ArrangeSubtree(child_xmin, child_ymin);
+        child.ArrangeSubtree(child_xmin, child_ymin);
             
-            // Move the next child's position
-            child_xmin = child.SubtreeBounds.Right + X_SPACING;
+        // Move the next child's position
+        child_xmin = child.SubtreeBounds.Right + X_SPACING;
             
-            // Track lowest point
-            if (ymax < child.SubtreeBounds.Bottom)
-                ymax = child.SubtreeBounds.Bottom;
-        }
+        // Track lowest point
+        if (ymax < child.SubtreeBounds.Bottom)
+            ymax = child.SubtreeBounds.Bottom;
     }
     
     // Reserve space for the non-leaf children before placing leaf nodes
-    double leafXMin = nonLeafCount > 0 ? child_xmin : xmin;
+    var leafXMin = nonLeafCount > 0 ? child_xmin : xmin;
     
     // If we have leaf nodes, arrange them vertically
     if (leafCount > 0)
     {
         // Center the vertical stack of leaves
-        double leafX = leafXMin + BOX_HALF_WIDTH;
-        double currentLeafY = leafYMin;
+        var leafX = leafXMin + BOX_HALF_WIDTH;
+        var currentLeafY = leafYMin;
         
-        foreach (NaryNode<T> child in Children)
+        foreach (var child 
+                 in Children.Where(child => child.IsLeaf))
         {
-            if (child.IsLeaf)
-            {
-                // Position leaf vertically
-                child.Center = new Point(leafX, currentLeafY + BOX_HALF_HEIGHT);
-                child.SubtreeBounds = new Rect(
-                    leafX - BOX_HALF_WIDTH, currentLeafY,
-                    2 * BOX_HALF_WIDTH, 2 * BOX_HALF_HEIGHT);
+            // Position leaf vertically
+            child.Center = new Point(leafX, currentLeafY + BOX_HALF_HEIGHT);
+            child.SubtreeBounds = new Rect(
+                leafX - BOX_HALF_WIDTH, currentLeafY,
+                2 * BOX_HALF_WIDTH, 2 * BOX_HALF_HEIGHT);
                 
-                // Move down for next leaf
-                currentLeafY += 2 * BOX_HALF_HEIGHT + Y_SPACING;
+            // Move down for next leaf
+            currentLeafY += 2 * BOX_HALF_HEIGHT + Y_SPACING;
                 
-                // Update max y coordinate
-                if (ymax < currentLeafY)
-                    ymax = currentLeafY;
-            }
+            // Update max y coordinate
+            if (ymax < currentLeafY)
+                ymax = currentLeafY;
         }
         
         // Adjust xmax to include leaf nodes width
@@ -207,7 +203,7 @@ private void ArrangeSubtree(double xmin, double ymin)
     }
 
     // Calculate bounds and center position
-    double xmax = child_xmin;
+    var xmax = child_xmin;
     SubtreeBounds = new Rect(xmin, ymin, xmax - xmin, ymax - ymin);
     cx = (SubtreeBounds.X + SubtreeBounds.Right) / 2;
     Center = new Point(cx, cy);
@@ -222,7 +218,7 @@ private void DrawSubtreeLinks(Canvas canvas)
     if (Children.Count == 0) return;
     
     // Group children by leaf/non-leaf
-    List<NaryNode<T>> leafChildren = new List<NaryNode<T>>();
+    var leafChildren = new List<NaryNode<T>>();
     List<NaryNode<T>> nonLeafChildren = new List<NaryNode<T>>();
     
     foreach (var child in Children)
@@ -236,10 +232,10 @@ private void DrawSubtreeLinks(Canvas canvas)
     // Handle non-leaf children (horizontal arrangement)
     if (nonLeafChildren.Count > 0)
     {
-        double ymid = (Center.Y + nonLeafChildren[0].Center.Y) / 2;
+        var ymid = (Center.Y + nonLeafChildren[0].Center.Y) / 2;
         canvas.DrawLine(Center, new Point(Center.X, ymid), new SolidColorBrush(Colors.Green), 1);
         
-        int lastChild = nonLeafChildren.Count - 1;
+        var lastChild = nonLeafChildren.Count - 1;
         if (lastChild > 0) // Multiple non-leaf children
         {
             canvas.DrawLine(
@@ -263,10 +259,10 @@ private void DrawSubtreeLinks(Canvas canvas)
     if (leafChildren.Count > 0)
     {
         // Find the vertical line position
-        double leafX = leafChildren[0].Center.X;
+        var leafX = leafChildren[0].Center.X;
         
         // Draw vertical line from parent to the middle of leaf stack
-        double midY = (leafChildren[0].Center.Y + leafChildren[leafChildren.Count - 1].Center.Y) / 2;
+        var midY = (leafChildren[0].Center.Y + leafChildren[leafChildren.Count - 1].Center.Y) / 2;
         
         if (nonLeafChildren.Count == 0)
         {
@@ -276,7 +272,7 @@ private void DrawSubtreeLinks(Canvas canvas)
         else
         {
             // If we have both types, connect to the horizontal line
-            double nonLeafYmid = (Center.Y + nonLeafChildren[0].Center.Y) / 2;
+            var nonLeafYmid = (Center.Y + nonLeafChildren[0].Center.Y) / 2;
             canvas.DrawLine(
                 new Point(leafX, nonLeafYmid),
                 new Point(leafX, midY),
@@ -309,11 +305,11 @@ private void DrawSubtreeLinks(Canvas canvas)
 private void DrawSubtreeNodes(Canvas canvas)
 {
     // Calculate the bounding rectangle for this node
-    double x0 = Center.X - BOX_HALF_WIDTH;
-    double y0 = Center.Y - BOX_HALF_HEIGHT;
-    double width = BOX_HALF_WIDTH * 2;
-    double height = BOX_HALF_HEIGHT * 2;
-    Rect rect = new Rect(x0, y0, width, height);
+    var x0 = Center.X - BOX_HALF_WIDTH;
+    var y0 = Center.Y - BOX_HALF_HEIGHT;
+    var width = BOX_HALF_WIDTH * 2;
+    var height = BOX_HALF_HEIGHT * 2;
+    var rect = new Rect(x0, y0, width, height);
 
     // Select styling based on node type
     Brush fillBrush;

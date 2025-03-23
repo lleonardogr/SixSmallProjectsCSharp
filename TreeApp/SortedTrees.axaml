@@ -6,13 +6,21 @@
         x:Class="TreeApp.SortedTrees"
         Loaded="Control_OnLoaded"
         Title="TreeApp">
-        <Grid RowDefinitions="Auto,*">
+        <Grid RowDefinitions="Auto,Auto,*">
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Background="Black" Margin="10">
                         <Button Content="Back to Menu" Click="BackButton_OnClick" Margin="0,0,10,0"/>
                 </StackPanel>
+                
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" Spacing="10">
+                        <TextBox x:Name="ValueTextBox" Width="100" Watermark="Enter a number"/>
+                        <Button Content="Add" Click="AddButton_OnClick"/>
+                        <Button Content="Remove" Click="RemoveButton_OnClick"/>
+                        <Button Content="Find" Click="FindButton_OnClick"/>
+                        <Button Content="Reset" Click="ResetButton_OnClick"/>
+                </StackPanel>
         
-                <Canvas Grid.Row="1" Name="MainCanvas" Background="Cornsilk">
+                <Canvas Grid.Row="2" Name="MainCanvas" Background="Cornsilk">
                 
                 </Canvas>
         </Grid>
