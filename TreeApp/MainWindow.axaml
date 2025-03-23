@@ -6,7 +6,27 @@
         x:Class="TreeApp.MainWindow"
         Loaded="Control_OnLoaded"
         Title="TreeApp">
-        <Canvas Name="MainCanvas" Background="Cornsilk">
-                
-        </Canvas>
+    <Grid Background="Cornsilk">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="20">
+            <TextBlock Text="Tree Visualization App" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            
+            <Button Name="OrgChartsButton" 
+                    Click="OrgChartsButton_OnClick"
+                    HorizontalAlignment="Center"
+                    Width="200" 
+                    Height="60" 
+                    Content="Organization Charts" 
+                    Background="Black"
+                    FontSize="16"/>
+            
+            <Button Name="SortedTreesButton" 
+                    Click="SortedTreesButton_OnClick"
+                    HorizontalAlignment="Center" 
+                    Width="200" 
+                    Height="60" 
+                    Content="Sorted Trees" 
+                    Background="Black"
+                    FontSize="16"/>
+        </StackPanel>
+    </Grid>
 </Window>
